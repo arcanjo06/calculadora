@@ -36,9 +36,9 @@ todos_valores=' '
 def entrar_valores(event):
 
 
-    global todos_valores
+    global todos_valores 
 
-    todos_valores= todos_valores+str(event)
+    todos_valores+=str(event)
 
 
     #passando valor pra tela
@@ -50,19 +50,17 @@ def calcular():
         global todos_valores
         todos_valores = todos_valores.replace('x', '*')
         todos_valores = todos_valores.replace('÷', '/')
-        if '**' in todos_valores:
-            valor_texto.set('Equação Inválida.')
-        if '*-+' in todos_valores:
-            valor_texto.set('Equação Inválida.')
-        if '*+-' in todos_valores:
-            valor_texto.set('Equação Inválida.')
-        else:
-            resultado = eval(todos_valores)
-            valor_texto.set(resultado)
-    except SyntaxError:
         valor_texto.set('Equação Inválida.')
-    except ZeroDivisionError:
-        valor_texto.set('É um fresco é')
+      
+        resultado = eval(todos_valores)
+        todos_valores=str(resultado)
+        valor_texto.set(resultado)
+    except (SyntaxError, ZeroDivisionError):
+        valor_texto.set('Equação Inválida.')
+        if SyntaxError or ZeroDivisionError:
+            todos_valores=""
+            
+
 
 #limpar tela
 def limpar_tela():
